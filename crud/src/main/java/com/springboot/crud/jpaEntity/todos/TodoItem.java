@@ -2,12 +2,12 @@ package com.springboot.crud.jpaEntity.todos;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class Todo {
+public class TodoItem {
   private Integer id;
   private String value;
 
   @Autowired
-  public Todo(Integer id, String value) {
+  public TodoItem(Integer id, String value) {
     this.id = id;
     this.value = value;
   }

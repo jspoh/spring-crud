@@ -1,12 +1,9 @@
 package com.springboot.crud.rest;
 
-import com.springboot.crud.jpaEntity.todos.Todo;
 import com.springboot.crud.jpaEntity.todos.Todos;
 import com.springboot.crud.jpaEntity.todos.TodosDAO;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -17,17 +14,17 @@ import java.util.List;
 public class Controller {
 
   private final TodosDAO todosDAO;
-  private List<Todo> todos;
+  private List<Todos> todos;
 
   @Autowired
   public Controller(TodosDAO todosDAO) {
     this.todosDAO = todosDAO;
   }
 
-//  @PostConstruct
-//  public void loadData() {
-//    this.todos = new ArrayList<>();
-//  }
+  @PostConstruct
+  public void loadData() {
+    this.todos = this.todosDAO.getAllTodos();
+  }
 
   /*
   @PostConstruct  // kinda like onInit
@@ -41,15 +38,15 @@ public class Controller {
 
   @GetMapping("/todos")
   public List<Todos> getTodos() {
-    return this.todosDAO.getAllTodos();
+    return this.todos;
   }
 
   @GetMapping("/todos/{id}")
-  public Todo getTodo(@PathVariable Integer id) {
+  public Todos getTodo(@PathVariable Integer id) {
     if (id >= this.todos.size() || id < 0) {
       throw new TodoNotFoundException("Todo can not be found - " + id);
     }
 
-    return todos.get(id);
+    return this.todos.get(id);
   }
 }

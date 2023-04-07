@@ -4,12 +4,12 @@
 
 Create java class for item, complete with constructors, getters, and setters
 ```java
-public class Todo {
+public class TodoItem {
   private Integer id;
   private String value;
 
   @Autowired
-  public Todo(Integer id, String value) {
+  public TodoItem(Integer id, String value) {
     this.id = id;
     this.value = value;
   }
@@ -36,7 +36,7 @@ Then, just return the data normally as a Todo object or an `ArrayList`
 @RestController
 @RequestMapping("/api")
 public class Controller {
-  private List<Todo> todos;
+  private List<TodoItem> todos;
 
   @PostConstruct  // kinda like onInit
   public void loadData() {
@@ -47,12 +47,12 @@ public class Controller {
   }
 
   @GetMapping("/todos")
-  public List<Todo> getTodos() {
+  public List<TodoItem> getTodos() {
     return this.todos;
   }
 
   @GetMapping("/todo/{id}")
-  public Todo getTodo(@PathVariable Integer id) {
+  public TodoItem getTodo(@PathVariable Integer id) {
     if (id >= this.todos.size() || id < 0) {
       throw new TodoNotFoundException("Todo can not be found - " + id);
     }

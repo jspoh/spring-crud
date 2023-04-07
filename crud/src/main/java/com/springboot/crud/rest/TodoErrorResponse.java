@@ -1,7 +1,5 @@
 package com.springboot.crud.rest;
 
-import com.springboot.crud.jpaEntity.todos.Todo;
-
 public class TodoErrorResponse {
   private int status;
   private String message;
