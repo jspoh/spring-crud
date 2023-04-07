@@ -1,4 +1,4 @@
-package com.springboot.crud.rest;
+package com.springboot.crud.exceptionHandlers.exceptions;
 
 public class TodoNotFoundException extends RuntimeException {
   public TodoNotFoundException(String message) {

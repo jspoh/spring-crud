@@ -1,12 +1,12 @@
 package com.springboot.crud.rest;
 
-import com.springboot.crud.jpaEntity.todos.Todos;
-import com.springboot.crud.jpaEntity.todos.TodosDAO;
+import com.springboot.crud.database.entities.Todos;
+import com.springboot.crud.database.dao.TodosDAO;
+import com.springboot.crud.exceptionHandlers.exceptions.TodoNotFoundException;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,16 +25,6 @@ public class Controller {
   public void loadData() {
     this.todos = this.todosDAO.getAllTodos();
   }
-
-  /*
-  @PostConstruct  // kinda like onInit
-  public void loadData() {
-    this.todos = new ArrayList<>();
-    this.todos.add(new Todo(1, "value1"));
-    this.todos.add(new Todo(2, "value2"));
-    this.todos.add(new Todo(3, "value3"));
-  }
-   */
 
   @GetMapping("/todos")
   public List<Todos> getTodos() {

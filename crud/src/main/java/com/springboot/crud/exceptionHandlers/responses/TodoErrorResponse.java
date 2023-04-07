@@ -1,4 +1,4 @@
-package com.springboot.crud.rest;
+package com.springboot.crud.exceptionHandlers.responses;
 
 public class TodoErrorResponse {
   private int status;

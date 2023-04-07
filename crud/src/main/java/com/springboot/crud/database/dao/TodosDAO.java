@@ -1,4 +1,6 @@
-package com.springboot.crud.jpaEntity.todos;
+package com.springboot.crud.database.dao;
+
+import com.springboot.crud.database.entities.Todos;
 
 import java.util.List;
 

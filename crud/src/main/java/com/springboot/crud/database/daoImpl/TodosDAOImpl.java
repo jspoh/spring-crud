@@ -1,5 +1,7 @@
-package com.springboot.crud.jpaEntity.todos;
+package com.springboot.crud.database.daoImpl;
 
+import com.springboot.crud.database.dao.TodosDAO;
+import com.springboot.crud.database.entities.Todos;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.springboot.crud.jpaEntity.todos;
+package com.springboot.crud.database.entities;
 
 import jakarta.persistence.*;
 

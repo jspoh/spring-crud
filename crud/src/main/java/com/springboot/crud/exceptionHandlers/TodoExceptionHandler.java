@@ -1,5 +1,7 @@
-package com.springboot.crud.rest;
+package com.springboot.crud.exceptionHandlers;
 
+import com.springboot.crud.exceptionHandlers.responses.TodoErrorResponse;
+import com.springboot.crud.exceptionHandlers.exceptions.TodoNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
