@@ -8,6 +8,6 @@ public interface TodosDAO {
   void addTodo(Todos item);
   Todos getTodo(Integer id);
   List<Todos> getAllTodos();
-  Todos updateTodo(Integer id, Todos item);
+  void updateTodo(Todos item);
   void deleteTodo(Integer id);
 }

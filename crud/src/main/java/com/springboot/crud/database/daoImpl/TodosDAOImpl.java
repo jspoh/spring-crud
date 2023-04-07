@@ -20,6 +20,7 @@ public class TodosDAOImpl implements TodosDAO {
   }
 
   @Override
+  @Transactional
   public void addTodo(Todos item) {
     entityManager.persist(item);
   }
@@ -40,13 +41,11 @@ public class TodosDAOImpl implements TodosDAO {
 
   @Override
   @Transactional
-  public Todos updateTodo(Integer id, Todos item) {
-    Todos todo = entityManager.find(Todos.class, id);
+  public void updateTodo(Todos item) {
+    Todos todo = entityManager.find(Todos.class, item.getId());
     todo.setValue(item.getValue());
 
     entityManager.merge(todo);
-
-    return todo;
   }
 
   @Override

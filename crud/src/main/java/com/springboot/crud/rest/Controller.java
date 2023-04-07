@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/api")
 public class Controller {
 
-  private final TodosDAO todosDAO;
+  private TodosDAO todosDAO;
   private List<Todos> todos;
 
   @Autowired
@@ -37,6 +37,26 @@ public class Controller {
       throw new TodoNotFoundException("Todo can not be found - " + id);
     }
 
-    return this.todos.get(id);
+    Todos todo = this.todosDAO.getTodo(id);
+
+    return todo;
+  }
+
+  @PostMapping("/todos")
+  public void addTodo(@RequestBody Todos todo) {
+    this.todosDAO.addTodo(todo);
+    this.loadData();
+  }
+
+  @PutMapping("/todos")
+  public void updateTodo(@RequestBody Todos todo) {
+    this.todosDAO.updateTodo(todo);
+    this.loadData();
+  }
+
+  @DeleteMapping("/todos/{id}")
+  public void deleteTodo(@PathVariable Integer id) {
+    this.todosDAO.deleteTodo(id);
+    this.loadData();
   }
 }
