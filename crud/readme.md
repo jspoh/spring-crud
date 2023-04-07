@@ -53,8 +53,94 @@ public class Controller {
 
   @GetMapping("/todo/{id}")
   public Todo getTodo(@PathVariable Integer id) {
+    if (id >= this.todos.size() || id < 0) {
+      throw new TodoNotFoundException("Todo can not be found - " + id);
+    }
+
     return todos.get(id);
   }
 }
 ```
 The data here is hardcoded in `@PostConstruct`
+
+# Exception handling
+
+Create Exception class extending `RuntimeException` class. Can use Intellij IDE to generate superclass constructors.
+```java
+public class TodoNotFoundException extends RuntimeException {
+  public TodoNotFoundException(String message) {
+    super(message);
+  }
+}
+```
+Create response class to return JSON (with Jackson)
+```java
+public class TodoErrorResponse {
+  private int status;
+  private String message;
+  private long timeStamp;
+
+  public TodoErrorResponse() {}
+
+  public TodoErrorResponse(int status, String message, long timeStamp) {
+    this.status = status;
+    this.message = message;
+    this.timeStamp = timeStamp;
+  }
+
+  // getters and setters
+  
+  public int getStatus() {
+    return status;
+  }
+
+  public void setStatus(int status) {
+    this.status = status;
+  }
+
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  public long getTimeStamp() {
+    return timeStamp;
+  }
+
+  public void setTimeStamp(long timeStamp) {
+    this.timeStamp = timeStamp;
+  }
+}
+```
+
+Add exception handlers with `@ExceptionHandler` syntax in rest controller
+```java
+@RestController
+@RequestMapping("/api")
+public class Controller {
+  
+  ...
+  
+  // handle exceptions of type TodoNotFoundException.
+  @ExceptionHandler
+  public ResponseEntity<TodoErrorResponse> handleException(TodoNotFoundException err) {
+    TodoErrorResponse res = new TodoErrorResponse(HttpStatus.NOT_FOUND.value(), err.getMessage(), System.currentTimeMillis());
+//    res.setStatus(HttpStatus.NOT_FOUND.value());
+//    res.setMessage(err.getMessage());
+//    res.setTimeStamp(System.currentTimeMillis());
+
+    return new ResponseEntity<>(res, HttpStatus.NOT_FOUND);
+  }
+
+  // handle all other exceptions (see parameter of Exception type catches all exceptions)
+  @ExceptionHandler
+  public ResponseEntity<TodoErrorResponse> handleException(Exception err) {
+    TodoErrorResponse res = new TodoErrorResponse(HttpStatus.BAD_REQUEST.value(), err.getMessage(), System.currentTimeMillis());
+
+    return new ResponseEntity<>(res, HttpStatus.BAD_REQUEST);
+  }
+}
+```
