@@ -147,7 +147,9 @@ public class Controller {
 
 # GLOBAL exception handlers
 
-Use `@ControllerAdvice`. Controller Advice is like a middleman for client and controller.
+Previously, all exception handlers can only be used by that one controller. Other REST controllers will not be able to access them.
+
+To make our exception handlers global, we can use `@ControllerAdvice`. Controller Advice is like a middleman for client and controller.
 
 Create new java class `TodoExceptionHandler`, decorate with `@ControllerAdvice` and add the `@ExceptionHandler`s.
 ```java

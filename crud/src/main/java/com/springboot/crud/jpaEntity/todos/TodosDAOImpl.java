@@ -3,11 +3,13 @@ package com.springboot.crud.jpaEntity.todos;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public class TodosDAOImpl implements TodosDAO{
+@Repository
+public class TodosDAOImpl implements TodosDAO {
   private final EntityManager entityManager;
 
   @Autowired
@@ -15,30 +17,29 @@ public class TodosDAOImpl implements TodosDAO{
     this.entityManager = entityManager;
   }
 
-
   @Override
-  public void addTodo(Todo item) {
+  public void addTodo(Todos item) {
     entityManager.persist(item);
   }
 
   @Override
-  public Todo getTodo(Integer id) {
-    TypedQuery<Todo> query = entityManager.createQuery("from todos where id=" + id, Todo.class);
-    Todo todo = query.getSingleResult();
+  public Todos getTodo(Integer id) {
+    TypedQuery<Todos> query = entityManager.createQuery("from Todos where id=" + id, Todos.class);
+    Todos todo = query.getSingleResult();
     return todo;
   }
 
   @Override
-  public List<Todo> getAllTodos() {
-    TypedQuery<Todo> query = entityManager.createQuery("from todos", Todo.class);
-    List<Todo> todos = query.getResultList();
+  public List<Todos> getAllTodos() {
+    TypedQuery<Todos> query = entityManager.createQuery("from Todos", Todos.class);
+    List<Todos> todos = query.getResultList();
     return todos;
   }
 
   @Override
   @Transactional
-  public Todo updateTodo(Integer id, Todo item) {
-    Todo todo = entityManager.find(Todo.class, id);
+  public Todos updateTodo(Integer id, Todos item) {
+    Todos todo = entityManager.find(Todos.class, id);
     todo.setValue(item.getValue());
 
     entityManager.merge(todo);
@@ -49,7 +50,7 @@ public class TodosDAOImpl implements TodosDAO{
   @Override
   @Transactional
   public void deleteTodo(Integer id) {
-    Todo todo = entityManager.find(Todo.class, id);
+    Todos todo = entityManager.find(Todos.class, id);
     entityManager.remove(todo);
   }
 }
