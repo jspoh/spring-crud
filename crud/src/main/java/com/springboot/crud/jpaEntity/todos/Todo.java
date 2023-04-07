@@ -1,24 +1,22 @@
 package com.springboot.crud.jpaEntity.todos;
 
-import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
-@Entity
-@Table(name="todos")  // table name
 public class Todo {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name="id")
-  private int id;
-
-  @Column(name = "value")
+  private Integer id;
   private String value;
 
-  public int getId() {
+  @Autowired
+  public Todo(Integer id, String value) {
+    this.id = id;
+    this.value = value;
+  }
+
+  public Integer getId() {
     return id;
   }
 
-  public void setId(int id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
@@ -28,12 +26,5 @@ public class Todo {
 
   public void setValue(String value) {
     this.value = value;
-  }
-  @Override
-  public String toString() {
-    return "Todos{" +
-        "id=" + id +
-        ", value='" + value + '\'' +
-        '}';
   }
 }

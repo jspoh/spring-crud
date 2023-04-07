@@ -7,11 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public class TodoDAOImpl implements TodoDAO{
+public class TodosDAOImpl implements TodosDAO{
   private final EntityManager entityManager;
 
   @Autowired
-  public TodoDAOImpl(EntityManager entityManager) {
+  public TodosDAOImpl(EntityManager entityManager) {
     this.entityManager = entityManager;
   }
 
@@ -19,6 +19,13 @@ public class TodoDAOImpl implements TodoDAO{
   @Override
   public void addTodo(Todo item) {
     entityManager.persist(item);
+  }
+
+  @Override
+  public Todo getTodo(Integer id) {
+    TypedQuery<Todo> query = entityManager.createQuery("from todos where id=" + id, Todo.class);
+    Todo todo = query.getSingleResult();
+    return todo;
   }
 
   @Override
