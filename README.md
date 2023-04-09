@@ -1,5 +1,5 @@
 Frontend:
-- To be decided
+- React (Typescript)
 
 Backend:
 - Spring boot (Java)
